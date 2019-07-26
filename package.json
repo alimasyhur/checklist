@@ -1,0 +1,19 @@
+{
+  "name": "kw-checklist",
+  "version": "1.0.0",
+  "description": "kw checklist with nodejs and graphql",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ali masyhur",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.15.3",
+    "express-graphql": "^0.6.12",
+    "graphql": "^0.10.5",
+    "mysql": "^2.13.0"
+  }
+}
