@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
   const Checklist = sequelize.define('Checklist', {
     object_domain: {
@@ -35,7 +36,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: true
     },
     due_unit: {
-      type: DataTypes.ENUM('minute','hour','day','week','month'),
+      type: DataTypes.STRING,
       allowNull: true
     },
     urgency: {

@@ -1,17 +1,16 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const model = require('./models/index');
+const express = require('express');
+const { ApolloServer } = require('apollo-server-express');
+const typeDefs = require('./schema')
+const resolvers = require('./resolvers')
+const models = require('./models')
+const server = new ApolloServer({ typeDefs, resolvers, context: { models } });
+const app = express();
 
-const app = express()
-app.use(bodyParser.json())
 
+server.applyMiddleware({ app });
+// models.sequelize.authenticate();
+// models.sequelize.sync();
 
-const port = 3000
-
-app.get('/api/users', (req, res) => {
-  model.User.findAll().then(users => res.json(users))
-})
-
-app.listen(port, () => {
-  console.log(`Listening on port ${port}`)
-})
+app.listen({ port: 3000 }, () =>
+    console.log(`🚀 Server ready at http://localhost:3000${server.graphqlPath}`)
+);
