@@ -1,0 +1,19 @@
+{
+  "name": "kw-checklist",
+  "version": "1.0.0",
+  "description": "kw checklist api",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "graphql-sequelize": "^9.3.6",
+    "mysql2": "^1.6.5",
+    "sequelize": "^5.11.0",
+    "sequelize-cli": "^5.5.0"
+  }
+}
