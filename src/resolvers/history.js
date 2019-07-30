@@ -1,19 +1,16 @@
 import Sequelize from 'sequelize';
 import { combineResolvers } from 'graphql-resolvers';
 
-import { isAuthenticated, isMessageOwner } from './authorization';
-
-import uuidv4 from 'uuid/v4';
+import { isAuthenticated, isHistoryOwner } from './authorization';
 
 const toCursorHash = string => Buffer.from(string).toString('base64');
 
 const fromCursorHash = string =>
   Buffer.from(string, 'base64').toString('ascii');
 
-
 export default {
   Query: {
-    messages: combineResolvers(
+    histories: combineResolvers(
       isAuthenticated,
       async (parent, { cursor, limit = 100 }, { models, me }) => {
         const cursorOptions = cursor
@@ -30,16 +27,14 @@ export default {
             }
           };
 
-        console.log(cursorOptions)
-
-        const messages = await models.Message.findAll({
+        const histories = await models.History.findAll({
           order: [['createdAt', 'DESC']],
           limit: limit + 1,
           ...cursorOptions,
         });
 
-        const hasNextPage = messages.length > limit;
-        const edges = hasNextPage ? messages.slice(0, -1) : messages;
+        const hasNextPage = histories.length > limit;
+        const edges = hasNextPage ? histories.slice(0, -1) : histories;
 
         return {
           edges,
@@ -52,38 +47,18 @@ export default {
         };
       }
     ),
-    message: combineResolvers(
+    history: combineResolvers(
       isAuthenticated,
-      isMessageOwner,
+      isHistoryOwner,
       async (parent, { id }, { models }) => {
-        return await models.Message.findByPk(id);
+        return await models.History.findByPk(id);
       }
     ),
   },
 
-  Mutation: {
-    createMessage: combineResolvers(
-      isAuthenticated,
-      async (parent, { text }, { models, me }) => {
-        return await models.Message.create({
-          text,
-          userId: me.id,
-        });
-      },
-    ),
-
-    deleteMessage: combineResolvers(
-      isAuthenticated,
-      isMessageOwner,
-      async (parent, { id }, { models }) => {
-        return await models.Message.destroy({ where: { id } });
-      },
-    ),
-  },
-
-  Message: {
-    user: async (message, args, { models }) => {
-      return await models.User.findByPk(message.userId);
+  History: {
+    user: async (history, args, { models }) => {
+      return await models.History.findByPk(history.userId);
     },
   },
 };

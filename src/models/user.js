@@ -30,7 +30,8 @@ const user = (sequelize, DataTypes) => {
   });
 
   User.associate = models => {
-    User.hasMany(models.Message, { onDelete: 'CASCADE' });
+    User.hasMany(models.Template, { onDelete: 'CASCADE' });
+    User.hasMany(models.History, { onDelete: 'CASCADE' });
   };
 
   User.findByLogin = async login => {

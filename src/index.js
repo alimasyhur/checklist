@@ -55,8 +55,6 @@ server.applyMiddleware({ app, path: '/graphql' });
 
 const isTest = !!process.env.TEST_DATABASE;
 
-console.log(isTest)
-
 sequelize.sync({ force: isTest }).then(async () => {
   if (isTest) {
     createUsersWithMessages(new Date());
@@ -73,36 +71,41 @@ const createUsersWithMessages = async date => {
       username: 'alimasyhur',
       email: 'alimasyhur@gmail.com',
       password: 'alimasyhur',
-      messages: [
+      templates: [
         {
-          text: 'Published the Road to learn React',
-          createdAt: date.setSeconds(date.getSeconds() + 1),
+          name: "Template 1",
+          checklist: `{description: "Checklist 1", due: "asdf", due_interval: 0, due_unit: "hour"}`,
+          items: `[
+                    {description: "Item 1", due: "asdf", due_interval: 0, due_unit: "hour"},
+                    {description: "Item 2", due: "asdf", due_interval: 0, due_unit: "hour"}
+                  ]`
         },
+        {
+          name: "Template 2",
+          checklist: `{description: "Checklist 2", due: "asdf", due_interval: 0, due_unit: "hour"}`,
+          items: `[
+                    {description: "Item 3", due: "asdf", due_interval: 0, due_unit: "hour"},
+                    {description: "Item 4", due: "asdf", due_interval: 0, due_unit: "hour"}
+                  ]`
+        }
       ],
-    },
-    {
-      include: [models.Message],
-    },
-  );
-
-  await models.User.create(
-    {
-      username: 'helloworld',
-      email: 'hello@world.com',
-      password: 'helloworld',
-      messages: [
+      histories: [
         {
-          text: 'Happy to release ...',
-          createdAt: date.setSeconds(date.getSeconds() + 1)
+          loggable_type: "asdf",
+          loggable_id: 1,
+          action: "update",
+          value: "history value 1"
         },
         {
-          text: 'Published a complete ...',
-          createdAt: date.setSeconds(date.getSeconds() + 1)
-        },
-      ],
+          loggable_type: "zxcv",
+          loggable_id: 2,
+          action: "assign",
+          value: "history value 2"
+        }
+      ]
     },
     {
-      include: [models.Message],
+      include: [models.Template, models.History],
     },
   );
 };

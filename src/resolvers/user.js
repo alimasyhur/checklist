@@ -36,7 +36,7 @@ export default {
         password,
       });
 
-      return { token: createToken(user, secret, '30m') };
+      return { token: createToken(user, secret, '120m') };
     },
 
     signIn: async (
@@ -58,7 +58,7 @@ export default {
         throw new AuthenticationError('Invalid password.');
       }
 
-      return { token: createToken(user, secret, '30m') };
+      return { token: createToken(user, secret, '120m') };
     },
 
     deleteUser: async (parent, { id }, { models }) => {
@@ -69,8 +69,15 @@ export default {
   },
 
   User: {
-    messages: async (user, args, { models }) => {
-      return await models.Message.findAll({
+    templates: async (user, args, { models }) => {
+      return await models.Template.findAll({
+        where: {
+          userId: user.id,
+        },
+      });
+    },
+    histories: async (user, args, { models }) => {
+      return await models.History.findAll({
         where: {
           userId: user.id,
         },

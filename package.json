@@ -28,8 +28,7 @@
     "mysql2": "^1.6.5",
     "nodemon": "^1.19.1",
     "sequelize": "^5.11.0",
-    "sequelize-cli": "^5.5.0",
-    "uuid": "^3.3.2"
+    "sequelize-cli": "^5.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",

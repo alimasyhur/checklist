@@ -1,7 +1,8 @@
 import { gql } from 'apollo-server-express';
 
 import userSchema from './user';
-import messageSchema from './message';
+import templateSchema from './template';
+import historySchema from './history';
 
 const linkSchema = gql`
   scalar Date
@@ -14,9 +15,15 @@ const linkSchema = gql`
     _: Boolean
   }
 
-  type Subscription {
-    _: Boolean
+  type PageInfo {
+    hasNextPage: Boolean!
+    endCursor: Date!
   }
 `;
 
-export default [linkSchema, userSchema, messageSchema];
+export default [
+                  linkSchema,
+                  userSchema,
+                  templateSchema,
+                  historySchema
+                ];

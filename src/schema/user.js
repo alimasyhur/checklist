@@ -26,6 +26,7 @@ export default gql`
     id: ID!
     username: String!
     email: String!
-    messages: [Message!]
+    templates: [Template!]
+    histories: [History!]
   }
 `;
