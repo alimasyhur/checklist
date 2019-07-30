@@ -69,6 +69,19 @@ export default {
       },
     ),
 
+    updateTemplate: combineResolvers(
+      isAuthenticated,
+      isTemplateOwner,
+      async (parent, { id, name, checklist, items }, { models, me }) => {
+        const template = await models.Template.findByPk(id)
+        return template.update({
+          name,
+          checklist,
+          items
+        });
+      },
+    ),
+
     deleteTemplate: combineResolvers(
       isAuthenticated,
       isTemplateOwner,

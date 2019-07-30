@@ -94,18 +94,29 @@ const createUsersWithMessages = async date => {
           loggable_type: "asdf",
           loggable_id: 1,
           action: "update",
-          value: "history value 1"
+          value: "value"
         },
         {
           loggable_type: "zxcv",
           loggable_id: 2,
           action: "assign",
-          value: "history value 2"
+          value: "value"
         }
       ]
     },
     {
       include: [models.Template, models.History],
+    },
+  );
+
+  await models.User.create(
+    {
+      username: 'helloworld',
+      email: 'hello@world.com',
+      password: 'helloworld'
+    },
+    {
+      include: [models.Template],
     },
   );
 };

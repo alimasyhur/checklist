@@ -8,6 +8,7 @@ export default gql`
 
   extend type Mutation {
     createTemplate(name: String!, checklist: String!, items: String!): Template!
+    updateTemplate(id: ID!, name: String!, checklist: String, items: String): Template!
     deleteTemplate(id: ID!): Boolean!
   }
 

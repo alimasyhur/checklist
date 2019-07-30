@@ -27,6 +27,15 @@ const history = (sequelize, DataTypes) => {
                   }
                 }
     },
+    value: {
+      type: DataTypes.TEXT,
+      validate: {
+                  notEmpty: {
+                    args: true,
+                    msg: 'A History has to have action'
+                  }
+                }
+    },
     kwuid: {
       type: DataTypes.INTEGER,
       validate: {

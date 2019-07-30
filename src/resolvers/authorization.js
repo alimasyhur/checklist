@@ -9,9 +9,9 @@ export const isTemplateOwner = async (
   { id },
   { models, me },
 ) => {
-  const message = await models.Template.findByPk(id, { raw: true });
+  const template = await models.Template.findByPk(id, { raw: true });
 
-  if (message.userId !== me.id) {
+  if (template.userId !== me.id) {
     throw new ForbiddenError('Not authenticated as owner.');
   }
 
@@ -24,9 +24,9 @@ export const isHistoryOwner = async (
   { id },
   { models, me },
 ) => {
-  const message = await models.History.findByPk(id, { raw: true });
+  const history = await models.History.findByPk(id, { raw: true });
 
-  if (message.userId !== me.id) {
+  if (history.userId !== me.id) {
     throw new ForbiddenError('Not authenticated as owner.');
   }
 
