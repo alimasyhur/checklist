@@ -89,3 +89,99 @@ export const histories = async (variables, token) =>
       'x-token': token,
     },
   });
+
+//Template
+export const templates = async (variables, token) =>
+  axios.post(API_URL, {
+    query: `
+      query ($limit: Int!) {
+        templates(limit: $limit) {
+           id
+           name
+           checklist
+           items
+        }
+      }
+    `,
+    variables,
+  }, {
+    headers: {
+      'x-token': token,
+    },
+  });
+
+  export const template = async (variables, token) =>
+  axios.post(API_URL, {
+    query: `
+      query ($id: ID!) {
+        template(id: $id) {
+          id
+          name
+          checklist
+          items
+        }
+      }
+    `,
+    variables,
+  }, {
+    headers: {
+      'x-token': token,
+    },
+  });
+
+  export const createTemplate = async (variables, token) =>
+  axios.post(API_URL, {
+    query: `
+      mutation ($name: String!, $checklist: ChecklistItemInput!, $items: [ChecklistItemInput]!) {
+        createTemplate(name: $name, checklist: $checklist, items: $items) {
+          id
+          name
+          checklist
+          items
+        }
+      }
+    `,
+    variables,
+  }, {
+    headers: {
+      'x-token': token,
+    },
+  });
+
+  export const updateTemplate = async (variables, token) =>
+  axios.post(API_URL, {
+    query: `
+      mutation ($id: ID!, $name: String!, $checklist: ChecklistItemInput, $items: [ChecklistItemInput]) {
+        updateTemplate(id: $id, name: $name, checklist: $checklist, items: $items) {
+          id
+          name
+          checklist
+          items
+        }
+      }
+    `,
+    variables,
+  }, {
+    headers: {
+      'x-token': token,
+    },
+  });
+
+
+  export const deleteTemplate = async (variables, token) =>
+    axios.post(
+      API_URL,
+      {
+        query: `
+          mutation ($id: ID!) {
+            deleteTemplate(id: $id)
+          }
+        `,
+        variables,
+      },
+      {
+        headers: {
+          'x-token': token,
+        },
+      },
+  );

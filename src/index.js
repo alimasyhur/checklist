@@ -74,18 +74,18 @@ const createUsersWithMessages = async date => {
       templates: [
         {
           name: "Template 1",
-          checklist: `{description: "Checklist 1", due: "asdf", due_interval: 0, due_unit: "hour"}`,
+          checklist: `{"description": "Checklist 1", "due": "asdf", "due_interval": 0, "due_unit": "hour"}`,
           items: `[
-                    {description: "Item 1", due: "asdf", due_interval: 0, due_unit: "hour"},
-                    {description: "Item 2", due: "asdf", due_interval: 0, due_unit: "hour"}
+                    {"description": "Item 1", "due": "asdf", "due_interval": 0, "due_unit": "hour"},
+                    {"description": "Item 2", "due": "asdf", "due_interval": 0, "due_unit": "hour"}
                   ]`
         },
         {
           name: "Template 2",
-          checklist: `{description: "Checklist 2", due: "asdf", due_interval: 0, due_unit: "hour"}`,
+          checklist: `{"description": "Checklist 2", "due": "asdf", "due_interval": 0, "due_unit": "hour"}`,
           items: `[
-                    {description: "Item 3", due: "asdf", due_interval: 0, due_unit: "hour"},
-                    {description: "Item 4", due: "asdf", due_interval: 0, due_unit: "hour"}
+                    {"description": "Item 3", "due": "asdf", "due_interval": 0, "due_unit": "hour"},
+                    {"description": "Item 4", "due": "asdf", "due_interval": 0, "due_unit": "hour"}
                   ]`
         }
       ],
