@@ -74,23 +74,36 @@ const createUsersWithMessages = async date => {
       templates: [
         {
           name: "Template 1",
-          checklist: `{description: "Checklist 1", due: "asdf", due_interval: 0, due_unit: "hour"}`,
+          checklist: `{"description": "Checklist 1", "due": "asdf", "due_interval": 0, "due_unit": "hour"}`,
           items: `[
-                    {description: "Item 1", due: "asdf", due_interval: 0, due_unit: "hour"},
-                    {description: "Item 2", due: "asdf", due_interval: 0, due_unit: "hour"}
+                    {"description": "Item 1", "due": "asdf", "due_interval": 0, "due_unit": "hour"},
+                    {"description": "Item 2", "due": "asdf", "due_interval": 0, "due_unit": "hour"}
                   ]`
         },
         {
           name: "Template 2",
-          checklist: `{description: "Checklist 2", due: "asdf", due_interval: 0, due_unit: "hour"}`,
+          checklist: `{"description": "Checklist 2", "due": "asdf", "due_interval": 0, "due_unit": "hour"}`,
           items: `[
-                    {description: "Item 3", due: "asdf", due_interval: 0, due_unit: "hour"},
-                    {description: "Item 4", due: "asdf", due_interval: 0, due_unit: "hour"}
+                    {"description": "Item 3", "due": "asdf", "due_interval": 0, "due_unit": "hour"},
+                    {"description": "Item 4", "due": "asdf", "due_interval": 0, "due_unit": "hour"}
                   ]`
         }
       ],
-      histories: [
-        {
+      checklists: [{
+          object_id: "3",
+          object_domain: "domain",
+          description: "checklist description",
+          urgency: 1,
+          is_completed: 0,
+          templateId: 1
+      }],
+      items: [{
+          description: "Item description",
+          urgency: 1,
+          is_completed: 0,
+          checklistId: 1
+      }],
+      histories: [{
           loggable_type: "asdf",
           loggable_id: 1,
           action: "update",
@@ -102,10 +115,9 @@ const createUsersWithMessages = async date => {
           action: "assign",
           value: "value"
         }
-      ]
-    },
+      ]},
     {
-      include: [models.Template, models.History],
+      include: [models.Template, models.Checklist, models.Item, models.History],
     },
   );
 

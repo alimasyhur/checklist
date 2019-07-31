@@ -31,19 +31,13 @@ const history = (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       validate: {
                   notEmpty: {
-                    args: true,
+                    args: false,
                     msg: 'A History has to have action'
                   }
                 }
     },
     kwuid: {
-      type: DataTypes.INTEGER,
-      validate: {
-                  nonEmpty: {
-                    args: false,
-                    msg: 'A History has to have kwuid'
-                  }
-                }
+      type: DataTypes.INTEGER
     }
   });
 

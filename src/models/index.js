@@ -10,8 +10,11 @@ const sequelize = new Sequelize(
 )
 
 const models = {
+  sequelize: sequelize,
   User: sequelize.import('./user'),
   Template: sequelize.import('./template'),
+  Checklist: sequelize.import('./checklist'),
+  Item: sequelize.import('./item'),
   History: sequelize.import('./history'),
 };
 

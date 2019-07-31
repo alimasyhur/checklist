@@ -27,6 +27,8 @@ export default gql`
     username: String!
     email: String!
     templates: [Template!]
+    checklists: [Checklist!]
+    items: [Item!]
     histories: [History!]
   }
 `;

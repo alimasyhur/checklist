@@ -24,6 +24,7 @@
     "graphql-relay": "^0.6.0",
     "graphql-resolvers": "^0.3.3",
     "graphql-sequelize": "^9.3.6",
+    "graphql-type-json": "^0.3.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^1.6.5",
     "nodemon": "^1.19.1",
