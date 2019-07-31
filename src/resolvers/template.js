@@ -111,6 +111,82 @@ export default {
       },
     ),
 
+    assignTemplate: combineResolvers(
+      isAuthenticated,
+      async (parent, { id, object_id, object_domain }, { models, me }) => {
+        const template = await models.Template.findByPk(id)
+        return await models.sequelize.transaction(async function(t){
+          const checklistObj = JSON.parse(template.checklist)
+
+          const itemsObj = JSON.parse(template.items)
+          itemsObj.forEach(function(item) {item.userId = me.id})
+
+          checklistObj.object_id = object_id
+          checklistObj.object_domain = object_domain
+          checklistObj.userId = me.id
+          checklistObj.templateId = template.id
+          checklistObj.items = itemsObj
+
+          const checklist = await models.Checklist.create(checklistObj,
+            {include: [models.Item]},
+            {transaction: t})
+
+          await models.History.create({
+            loggable_id: template.id,
+            loggable_type: "templates",
+            action: "assign",
+            value: JSON.stringify(template),
+            kwuid: me.id,
+            userId: me.id
+          }, {transaction: t});
+
+
+          return checklist
+        });
+      },
+    ),
+
+    assignMultiTemplate: combineResolvers(
+      isAuthenticated,
+      async (parent, { id, data }, { models, me }) => {
+        const template = await models.Template.findByPk(id)
+        await models.sequelize.transaction(async function(t){
+          data.forEach(function(checklistData) {
+
+            const checklistObj = JSON.parse(template.checklist)
+
+            const itemsObj = JSON.parse(template.items)
+            itemsObj.forEach(function(item) {item.userId = me.id})
+            //
+            checklistObj.object_id = checklistData.object_id
+            checklistObj.object_domain = checklistData.object_domain
+            checklistObj.userId = me.id
+            checklistObj.templateId = template.id
+            checklistObj.items = itemsObj
+
+            models.Checklist.create(checklistObj,
+              {include: [models.Item]},
+              {transaction: t})
+
+          })
+
+          await models.History.create({
+            loggable_id: template.id,
+            loggable_type: "templates",
+            action: "assign-bulk",
+            value: JSON.stringify(data),
+            kwuid: me.id,
+            userId: me.id
+          }, {transaction: t});
+
+          console.log(id)
+          console.log(me.id)
+        });
+
+        return models.Checklist.findAll({where: {templateId: id, userId: me.id}})
+      },
+    ),
+
     deleteTemplate: combineResolvers(
       isAuthenticated,
       isTemplateOwner,

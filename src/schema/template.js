@@ -11,12 +11,19 @@ export default gql`
   extend type Mutation {
     createTemplate(name: String!, checklist: ChecklistItemInput!, items: [ChecklistItemInput]!): Template!
     updateTemplate(id: ID!, name: String!, checklist: ChecklistItemInput, items: [ChecklistItemInput]): Template!
+    assignTemplate(id: ID!, object_id: String!, object_domain: String!): Checklist!
+    assignMultiTemplate(id: ID!, data: [ChecklistTemplateInput!]!): [Checklist!]
     deleteTemplate(id: ID!): Boolean!
   }
 
   type TemplateConnection {
     edges: [Template!]!
     pageInfo: PageInfo!
+  }
+
+  input ChecklistTemplateInput {
+    object_id: String!
+    object_domain: String!
   }
 
   input ChecklistItemInput {

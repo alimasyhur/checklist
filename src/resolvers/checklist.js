@@ -155,6 +155,16 @@ export default {
   },
 
   Checklist: {
+    template: async (checklist, args, { models }) => {
+      return await models.Template.findByPk(checklist.userId);
+    },
+    items: async (checklist, args, { models }) => {
+      return await models.Item.findAll({
+        where: {
+          checklistId: checklist.id,
+        },
+      });
+    },
     user: async (checklist, args, { models }) => {
       return await models.User.findByPk(checklist.userId);
     },

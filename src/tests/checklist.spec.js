@@ -48,7 +48,9 @@ describe('checklists', () => {
 
       should(result.data).exist('error')
     });
+  });
 
+  describe('createChecklist(object_id: String, object_domain: String!, description: String!, urgency: Int)', () => {
     it('create a checklist', async () => {
       const {
         data: {
@@ -82,7 +84,9 @@ describe('checklists', () => {
 
       expect(result.data).to.eql(expectedResult);
     });
+  });
 
+  describe('updateChecklist(id: ID!, object_id: String!, object_domain: String!, description: String!, urgency: Int)', () => {
     it('update a checklist', async () => {
       const {
         data: {
@@ -119,25 +123,25 @@ describe('checklists', () => {
     });
   });
 
-  describe('deleteChecklist(id: String!): Boolean!', () => {
-    it('returns delete a checklist', async () => {
-      const {
-        data: {
-          data: {
-            signIn: { token },
-          },
-        },
-      } = await api.signIn({
-        login: 'alimasyhur',
-        password: 'alimasyhur',
-      });
-
-      const expectedResult = {data: {deleteChecklist: true}}
-
-      const result = await api.deleteChecklist({ id: '1' }, token);
-
-      expect(result.data).to.eql(expectedResult);
-    });
-  });
+  // describe('deleteChecklist(id: String!): Boolean!', () => {
+  //   it('returns delete a checklist', async () => {
+  //     const {
+  //       data: {
+  //         data: {
+  //           signIn: { token },
+  //         },
+  //       },
+  //     } = await api.signIn({
+  //       login: 'alimasyhur',
+  //       password: 'alimasyhur',
+  //     });
+  //
+  //     const expectedResult = {data: {deleteChecklist: true}}
+  //
+  //     const result = await api.deleteChecklist({ id: '1' }, token);
+  //
+  //     expect(result.data).to.eql(expectedResult);
+  //   });
+  // });
 
 });

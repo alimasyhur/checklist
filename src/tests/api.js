@@ -167,6 +167,55 @@ export const templates = async (variables, token) =>
     },
   });
 
+  export const assignTemplate = async (variables, token) =>
+  axios.post(API_URL, {
+    query: `
+      mutation ($id: ID!,
+                $object_domain: String!,
+                $object_id: String!
+                ) {
+        assignTemplate(id: $id,
+                        object_domain: $object_domain,
+                        object_id: $object_id
+                     ) {
+                object_domain
+                object_id
+                description
+                items {
+                  description
+                }
+        }
+      }
+    `,
+    variables,
+  }, {
+    headers: {
+      'x-token': token,
+    },
+  });
+
+  export const assignMultiTemplate = async (variables, token) =>
+  axios.post(API_URL, {
+    query: `
+      mutation ($id: ID!, $data: [ChecklistTemplateInput!]!) {
+        assignMultiTemplate(id: $id,
+                        data: $data
+                     ) {
+                object_domain
+                object_id
+                description
+                items {
+                  description
+                }
+        }
+      }
+    `,
+    variables,
+  }, {
+    headers: {
+      'x-token': token,
+    },
+  });
 
   export const deleteTemplate = async (variables, token) =>
     axios.post(
@@ -292,7 +341,6 @@ export const templates = async (variables, token) =>
       },
     });
 
-
     export const deleteChecklist = async (variables, token) =>
       axios.post(
         API_URL,
@@ -310,3 +358,89 @@ export const templates = async (variables, token) =>
           },
         },
     );
+
+    export const checklistItem = async (variables, token) =>
+      axios.post(API_URL, {
+        query: `
+          query ($checklistId: Int!, $itemId: Int!) {
+            checklistItem(checklistId: $checklistId, itemId: $itemId) {
+              id
+              description
+              urgency
+              checklist {
+                id
+                object_domain
+                object_id
+                description
+              }
+            }
+          }
+        `,
+        variables,
+      }, {
+        headers: {
+          'x-token': token,
+        },
+      });
+
+    export const createChecklistItem = async (variables, token) =>
+      axios.post(API_URL, {
+        query: `
+          mutation ($checklistId: Int!, $description: String!) {
+            createChecklistItem(checklistId: $checklistId, description: $description) {
+                    id
+                    description
+                    checklist{
+                      id
+                      object_id
+                      object_domain
+                    }
+            }
+          }
+        `,
+        variables,
+      }, {
+        headers: {
+          'x-token': token,
+        },
+      });
+
+  export const updateChecklistItem = async (variables, token) =>
+    axios.post(API_URL, {
+      query: `
+        mutation ($checklistId: Int!, $id: Int!, $description: String!) {
+          updateChecklistItem(checklistId: $checklistId, id: $id, description: $description) {
+                  id
+                  description
+                  checklist{
+                    id
+                    object_id
+                    object_domain
+                  }
+          }
+        }
+      `,
+      variables,
+    }, {
+      headers: {
+        'x-token': token,
+      },
+    });
+
+  export const deleteChecklistItem = async (variables, token) =>
+    axios.post(
+      API_URL,
+      {
+        query: `
+          mutation ($checklistId: Int!, $id: Int!) {
+            deleteChecklistItem(checklistId: $checklistId, id: $id)
+          }
+        `,
+        variables,
+      },
+      {
+        headers: {
+          'x-token': token,
+        },
+      },
+  );

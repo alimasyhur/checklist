@@ -39,6 +39,7 @@ export default gql`
     urgency: Int
     createdAt: Date!
     updatedAt: Date!
+    items: [Item!]
     user: User!
     template: Template!
   }

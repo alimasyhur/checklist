@@ -19,8 +19,8 @@ const item = (sequelize, DataTypes) => {
   });
 
   Item.associate = models => {
-    Item.belongsTo(models.User);
     Item.belongsTo(models.Checklist);
+    Item.belongsTo(models.User);
   };
 
   return Item;
