@@ -18,6 +18,34 @@ export const isTemplateOwner = async (
   return skip;
 };
 
+export const isChecklistOwner = async (
+  parent,
+  { id },
+  { models, me },
+) => {
+  const checklist = await models.Checklist.findByPk(id, { raw: true });
+
+  if (checklist.userId !== me.id) {
+    throw new ForbiddenError('Not authenticated as owner.');
+  }
+
+  return skip;
+};
+
+export const isItemOwner = async (
+  parent,
+  { id },
+  { models, me },
+) => {
+  const item = await models.Item.findByPk(id, { raw: true });
+
+  if (item.userId !== me.id) {
+    throw new ForbiddenError('Not authenticated as owner.');
+  }
+
+  return skip;
+};
+
 
 export const isHistoryOwner = async (
   parent,

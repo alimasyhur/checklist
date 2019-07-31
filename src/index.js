@@ -89,8 +89,21 @@ const createUsersWithMessages = async date => {
                   ]`
         }
       ],
-      histories: [
-        {
+      checklists: [{
+          object_id: "3",
+          object_domain: "domain",
+          description: "checklist description",
+          urgency: 1,
+          is_completed: 0,
+          templateId: 1
+      }],
+      items: [{
+          description: "Item description",
+          urgency: 1,
+          is_completed: 0,
+          checklistId: 1
+      }],
+      histories: [{
           loggable_type: "asdf",
           loggable_id: 1,
           action: "update",
@@ -102,10 +115,9 @@ const createUsersWithMessages = async date => {
           action: "assign",
           value: "value"
         }
-      ]
-    },
+      ]},
     {
-      include: [models.Template, models.History],
+      include: [models.Template, models.Checklist, models.Item, models.History],
     },
   );
 

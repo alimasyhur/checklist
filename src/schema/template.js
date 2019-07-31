@@ -2,7 +2,6 @@ import { gql } from 'apollo-server-express';
 
 export default gql`
   scalar JSON
-  scalar JSONObject
 
   extend type Query {
     templates(cursor: String, limit: Int): TemplateConnection!

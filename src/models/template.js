@@ -30,6 +30,7 @@ const template = (sequelize, DataTypes) => {
   });
 
   Template.associate = models => {
+    Template.hasMany(models.Checklist, { onDelete: 'CASCADE' });
     Template.belongsTo(models.User);
   };
 

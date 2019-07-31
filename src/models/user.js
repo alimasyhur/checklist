@@ -31,6 +31,8 @@ const user = (sequelize, DataTypes) => {
 
   User.associate = models => {
     User.hasMany(models.Template, { onDelete: 'CASCADE' });
+    User.hasMany(models.Checklist, { onDelete: 'CASCADE' });
+    User.hasMany(models.Item, { onDelete: 'CASCADE' });
     User.hasMany(models.History, { onDelete: 'CASCADE' });
   };
 

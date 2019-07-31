@@ -76,6 +76,20 @@ export default {
         },
       });
     },
+    checklists: async (user, args, { models }) => {
+      return await models.Checklist.findAll({
+        where: {
+          userId: user.id,
+        },
+      });
+    },
+    items: async (user, args, { models }) => {
+      return await models.Item.findAll({
+        where: {
+          userId: user.id,
+        },
+      });
+    },
     histories: async (user, args, { models }) => {
       return await models.History.findAll({
         where: {
