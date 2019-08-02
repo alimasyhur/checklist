@@ -106,8 +106,6 @@ export default {
               userId: me.id
             }, {transaction: t});
 
-            console.log(item)
-
             return item
           }else {
             throw new Error('Checklist not found!')
@@ -190,6 +188,15 @@ export default {
             idx++
           });
 
+          await models.History.create({
+            loggable_id: checklistId,
+            loggable_type: "checklists",
+            action: "update-bulk",
+            value: JSON.stringify(data),
+            kwuid: me.id,
+            userId: me.id
+          }, {transaction: t});
+
           return response
         });
       },
@@ -265,6 +272,15 @@ export default {
               })
           })
 
+          await models.History.create({
+            loggable_id: me.id,
+            loggable_type: "items",
+            action: "complete",
+            value: JSON.stringify(data),
+            kwuid: me.id,
+            userId: me.id
+          }, {transaction: t});
+
           return response
         });
       },
@@ -297,6 +313,15 @@ export default {
                 checklistId: item.checklistId
               })
           })
+
+          await models.History.create({
+            loggable_id: me.id,
+            loggable_type: "items",
+            action: "incomplete",
+            value: JSON.stringify(data),
+            kwuid: me.id,
+            userId: me.id
+          }, {transaction: t});
 
           return response
         });
