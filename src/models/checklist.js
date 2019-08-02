@@ -27,7 +27,10 @@ const checklist = (sequelize, DataTypes) => {
                   }
                 }
     },
-    is_completed: { type: DataTypes.BOOLEAN },
+    is_completed: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+     },
     completed_at: { type: DataTypes.STRING },
     updated_by: { type: DataTypes.STRING },
     due: { type: DataTypes.STRING },

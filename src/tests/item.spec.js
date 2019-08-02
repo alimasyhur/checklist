@@ -54,10 +54,8 @@ describe('items', () => {
         const expectedResult = {
               data: {
                 "createChecklistItem": {
-                  id: "2",
                   description: "Create Item",
                   checklist: {
-                    id: "1",
                     object_id: "4",
                     object_domain: "domain-update"
                   }
@@ -132,4 +130,88 @@ describe('items', () => {
         expect(result.data).to.eql(expectedResult);
       });
     });
+
+    describe('completeChecklistItems(data: [ItemsCompleteInput!]!): [ItemsCompleteResponse]', () => {
+        it('complete Item(s)', async () => {
+          const {
+            data: {
+              data: {
+                signIn: { token },
+              },
+            },
+          } = await api.signIn({
+            login: 'alimasyhur',
+            password: 'alimasyhur',
+          });
+
+          const expectedResult = {
+                                    data: {
+                                      completeChecklistItems: [
+                                        {
+                                          id: 1,
+                                          itemId: 2,
+                                          is_completed: true,
+                                          checklistId: 2
+                                        },
+                                        {
+                                          id: 2,
+                                          itemId: 3,
+                                          is_completed: true,
+                                          checklistId: 2
+                                        }
+                                      ]
+                                    }
+                                  }
+
+          const result = await api.completeChecklistItems({
+                                      data: [
+                                              {itemId: 2},
+                                              {itemId: 3}
+                                            ]}, token);
+
+          expect(result.data).to.eql(expectedResult);
+        });
+      });
+
+    describe('incompleteChecklistItems(data: [ItemsCompleteInput!]!): [ItemsCompleteResponse]', () => {
+        it('incomplete Item(s)', async () => {
+          const {
+            data: {
+              data: {
+                signIn: { token },
+              },
+            },
+          } = await api.signIn({
+            login: 'alimasyhur',
+            password: 'alimasyhur',
+          });
+
+          const expectedResult = {
+                  data: {
+                    incompleteChecklistItems: [
+                      {
+                        id: 1,
+                        itemId: 2,
+                        is_completed: false,
+                        checklistId: 2
+                      },
+                      {
+                        id: 2,
+                        itemId: 3,
+                        is_completed: false,
+                        checklistId: 2
+                      }
+                    ]
+                  }
+                }
+
+          const result = await api.incompleteChecklistItems({
+                                      data: [
+                                              {itemId: 2},
+                                              {itemId: 3}
+                                            ]}, token);
+
+          expect(result.data).to.eql(expectedResult);
+        });
+      });
 });

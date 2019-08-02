@@ -10,14 +10,19 @@ export default gql`
     createChecklist(
       object_id: String!, object_domain: String!, description: String!,
       is_completed: Boolean, due: String, due_interval: Int,
-      due_unit: String, urgency: Int
+      due_unit: String, urgency: Int, items: [itemsInput]
     ): Checklist!
     updateChecklist(
-      id: ID!, object_id: String!, object_domain: String!, description: String!,
-      is_completed: Boolean, completed_at: String, updated_by: String,
-      due: String, due_interval: Int, due_unit: String, urgency: Int
+      id: ID!, object_id: String!, object_domain: String!,
+      description: String!, is_completed: Boolean, completed_at: String,
+      updated_by: String, due: String, due_interval: Int,
+      due_unit: String, urgency: Int, items: [itemsInput]
     ): Checklist!
     deleteChecklist(id: ID!): Boolean!
+  }
+
+  input itemsInput {
+    description: String!
   }
 
   type ChecklistConnection {

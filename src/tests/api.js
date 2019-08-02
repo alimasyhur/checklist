@@ -290,17 +290,23 @@ export const templates = async (variables, token) =>
         mutation ($object_domain: String!,
                   $object_id: String!,
                   $description: String!,
-                  $urgency: Int) {
+                  $urgency: Int,
+                  $items: [itemsInput]
+                ) {
           createChecklist(object_domain: $object_domain,
                           object_id: $object_id,
                           description: $description,
-                          urgency: $urgency
+                          urgency: $urgency,
+                          items: $items
                           ) {
                   id
                   object_domain
                   object_id
                   description
                   urgency
+                  items {
+                    description
+                  }
           }
         }
       `,
@@ -388,10 +394,8 @@ export const templates = async (variables, token) =>
         query: `
           mutation ($checklistId: Int!, $description: String!) {
             createChecklistItem(checklistId: $checklistId, description: $description) {
-                    id
                     description
                     checklist{
-                      id
                       object_id
                       object_domain
                     }
@@ -444,3 +448,41 @@ export const templates = async (variables, token) =>
         },
       },
   );
+
+  export const completeChecklistItems = async (variables, token) =>
+    axios.post(API_URL, {
+      query: `
+        mutation ($data: [ItemsCompleteInput!]!) {
+          completeChecklistItems(data: $data) {
+              id
+              itemId
+              is_completed
+              checklistId
+          }
+        }
+      `,
+      variables,
+    }, {
+      headers: {
+        'x-token': token,
+      },
+    });
+
+  export const incompleteChecklistItems = async (variables, token) =>
+    axios.post(API_URL, {
+      query: `
+        mutation ($data: [ItemsCompleteInput!]!) {
+          incompleteChecklistItems(data: $data) {
+              id
+              itemId
+              is_completed
+              checklistId
+          }
+        }
+      `,
+      variables,
+    }, {
+      headers: {
+        'x-token': token,
+      },
+    });

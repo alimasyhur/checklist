@@ -67,10 +67,13 @@ export default {
                         due,
                         due_interval,
                         due_unit,
-                        urgency
+                        urgency,
+                        items
        }, { models, me }) => {
 
         return await models.sequelize.transaction(async function(t){
+          items = (items === undefined) ? [] : items
+
           const checklist = await models.Checklist.create({
             object_id,
             object_domain,
@@ -81,7 +84,9 @@ export default {
             due_unit,
             urgency,
             userId: me.id,
-          }, {transaction: t});
+            items: items
+          }, {include: [models.Item]},
+            {transaction: t});
 
           await models.History.create({
             loggable_id: checklist.id,
