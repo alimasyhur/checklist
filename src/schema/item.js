@@ -17,9 +17,23 @@ export default gql`
       is_completed: Boolean, completed_at: String, updated_by: String,
       due: String, due_interval: Int, due_unit: String, urgency: Int
     ): Item!
+    updateBulkChecklistItem(checklistId: Int!, data: [BulkItemInput!]!): [BulkItemResponse!]
     deleteChecklistItem(checklistId: Int!, id: Int!): Boolean!
     completeChecklistItems(data: [ItemsCompleteInput!]!): [ItemsCompleteResponse]
     incompleteChecklistItems(data: [ItemsCompleteInput!]!): [ItemsCompleteResponse]
+  }
+
+  input BulkItemInput {
+    id: Int!
+    description: String
+    due: String
+    urgency: Int
+  }
+
+  type BulkItemResponse {
+    id: String
+    action: String
+    status: Int
   }
 
   type ItemsCompleteResponse {

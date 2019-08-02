@@ -347,6 +347,24 @@ export const templates = async (variables, token) =>
       },
     });
 
+    export const updateBulkChecklistItem = async (variables, token) =>
+    axios.post(API_URL, {
+      query: `
+        mutation ($checklistId: Int!, $data: [BulkItemInput!]!) {
+          updateBulkChecklistItem(checklistId: $checklistId, data: $data) {
+                  id
+                  action
+                  status
+          }
+        }
+      `,
+      variables,
+    }, {
+      headers: {
+        'x-token': token,
+      },
+    });
+
     export const deleteChecklist = async (variables, token) =>
       axios.post(
         API_URL,

@@ -72,7 +72,13 @@ export default {
        }, { models, me }) => {
 
         return await models.sequelize.transaction(async function(t){
-          items = (items === undefined) ? [] : items
+          if(items === undefined) {
+            items = [];
+          }else {
+            items.forEach(function(i){
+              i.userId = me.id
+            })
+          }
 
           const checklist = await models.Checklist.create({
             object_id,

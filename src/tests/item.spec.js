@@ -109,6 +109,48 @@ describe('items', () => {
       });
     });
 
+    describe('updateBulkChecklistItem(checklistId: Int!, data: [BulkItemInput!]!): [BulkItemResponse!]', () => {
+        it('update bulk checklist items', async () => {
+          const {
+            data: {
+              data: {
+                signIn: { token },
+              },
+            },
+          } = await api.signIn({
+            login: 'alimasyhur',
+            password: 'alimasyhur',
+          });
+
+          const expectedResult = {
+                                data: {
+                                  updateBulkChecklistItem: [
+                                    {
+                                      id: "1",
+                                      action: "update",
+                                      status: 200
+                                    },
+                                    {
+                                      id: "100",
+                                      action: "update",
+                                      status: 404
+                                    }
+                                  ]
+                                }
+                              }
+
+          const result = await api.updateBulkChecklistItem({
+                                        checklistId: 1,
+                                        data: [
+                                          {id:1, description: "hahaha"},
+                                          {id:100, description: "hihi"}
+                                        ]
+                                      }, token);
+
+          expect(result.data).to.eql(expectedResult);
+        });
+      });
+
     describe('deleteChecklistItem(checklistId: Int!, id: Int!): Boolean!', () => {
       it('returns delete a checklist item', async () => {
         const {

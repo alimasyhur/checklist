@@ -152,6 +152,49 @@ export default {
       },
     ),
 
+    updateBulkChecklistItem: combineResolvers(
+      isAuthenticated,
+      async (parent, { checklistId, data }, { models, me }) => {
+        return await models.sequelize.transaction(async function(t){
+          const response = []
+          var itemIds = []
+          data.forEach(function(data) {
+            itemIds.push(data.id)
+          })
+          const items = await models.Item.findAll({where: {id: itemIds}})
+
+          var idx = 0
+          data.forEach(function(item) {
+            if(items[idx]) {
+              if(items[idx].userId !== me.id) {
+                response.push({
+                  id: item.id,
+                  action: "update",
+                  status: 403
+                })
+              }else {
+                items[idx].update(item)
+                response.push({
+                  id: item.id,
+                  action: "update",
+                  status: 200
+                })
+              }
+            }else {
+              response.push({
+                id: item.id,
+                action: "update",
+                status: 404
+              })
+            }
+            idx++
+          });
+
+          return response
+        });
+      },
+    ),
+
     deleteChecklistItem: combineResolvers(
       isAuthenticated,
       async (parent, { checklistId, id }, { models, me }) => {
