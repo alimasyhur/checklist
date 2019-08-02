@@ -70,7 +70,11 @@ describe('checklists', () => {
                 object_id: "3",
                 object_domain: "domain",
                 description: "desc",
-                urgency: 1
+                urgency: 1,
+                items: [
+                  {description: "Checklist Item 1"},
+                  {description: "Checklist Item 2"}
+                ]
               }
             }
           }
@@ -79,7 +83,11 @@ describe('checklists', () => {
                                   object_id: "3",
                                   object_domain: "domain",
                                   description: "desc",
-                                  urgency: 1
+                                  urgency: 1,
+                                  items: [
+                                    {description: "Checklist Item 1"},
+                                    {description: "Checklist Item 2"}
+                                  ]
        }, token);
 
       expect(result.data).to.eql(expectedResult);

@@ -18,6 +18,19 @@ export default gql`
       due: String, due_interval: Int, due_unit: String, urgency: Int
     ): Item!
     deleteChecklistItem(checklistId: Int!, id: Int!): Boolean!
+    completeChecklistItems(data: [ItemsCompleteInput!]!): [ItemsCompleteResponse]
+    incompleteChecklistItems(data: [ItemsCompleteInput!]!): [ItemsCompleteResponse]
+  }
+
+  type ItemsCompleteResponse {
+    id: Int
+    itemId: Int
+    is_completed: Boolean
+    checklistId: Int
+  }
+
+  input ItemsCompleteInput {
+    itemId: ID!
   }
 
   type ItemConnection {
@@ -27,7 +40,7 @@ export default gql`
 
   type Item {
     id: ID!
-    description: String!
+    description: String
     is_completed: Boolean
     completed_at: String
     updated_by: String

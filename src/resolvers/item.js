@@ -193,6 +193,72 @@ export default {
         }
       },
     ),
+
+    completeChecklistItems: combineResolvers(
+      isAuthenticated,
+      async (parent, { data }, { models, me }) => {
+        return await models.sequelize.transaction(async function(t){
+          var id = 0
+          var itemIds = []
+          data.forEach(function(data) {
+              itemIds.push(data.itemId)
+          });
+
+          const items = await models.Item.update(
+                                    {is_completed: true},
+                                    {where: {id: itemIds}},
+                                    {transaction: t}
+                                  )
+
+          var response = []
+
+          const modelItems = await models.Item.findAll({where: {id: itemIds}})
+          modelItems.forEach(function(item) {
+              response.push({
+                id: ++id,
+                itemId: item.id,
+                is_completed: item.is_completed,
+                checklistId: item.checklistId
+              })
+          })
+
+          return response
+        });
+      },
+    ),
+
+    incompleteChecklistItems: combineResolvers(
+      isAuthenticated,
+      async (parent, { data }, { models, me }) => {
+        return await models.sequelize.transaction(async function(t){
+          var id = 0
+          var itemIds = []
+          data.forEach(function(data) {
+              itemIds.push(data.itemId)
+          });
+
+          const items = await models.Item.update(
+                                    {is_completed: false},
+                                    {where: {id: itemIds}},
+                                    {transaction: t}
+                                  )
+
+          var response = []
+
+          const modelItems = await models.Item.findAll({where: {id: itemIds}})
+          modelItems.forEach(function(item) {
+              response.push({
+                id: ++id,
+                itemId: item.id,
+                is_completed: item.is_completed,
+                checklistId: item.checklistId
+              })
+          })
+
+          return response
+        });
+      },
+    ),
   },
 
   Item: {
