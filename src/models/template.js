@@ -1,40 +1,40 @@
 const template = (sequelize, DataTypes) => {
-  const Template = sequelize.define('template', {
-    name: {
-      type: DataTypes.STRING,
-      validate: {
-                  notEmpty: {
+    const Template = sequelize.define('template', {
+        name: {
+            type: DataTypes.STRING,
+            validate: {
+                notEmpty: {
                     args: true,
                     msg: 'A Template has to have a name'
-                  }
                 }
-    },
-    checklist: {
-      type: DataTypes.STRING,
-      validate: {
-                  notEmpty: {
+            }
+        },
+        checklist: {
+            type: DataTypes.STRING,
+            validate: {
+                notEmpty: {
                     args: true,
                     msg: 'A Template has to have a checklist'
-                  }
                 }
-    },
-    items: {
-      type: DataTypes.STRING,
-      validate: {
-                  notEmpty: {
+            }
+        },
+        items: {
+            type: DataTypes.STRING,
+            validate: {
+                notEmpty: {
                     args: true,
                     msg: 'A Template has to have items'
-                  }
                 }
-    },
-  });
+            }
+        },
+    });
 
-  Template.associate = models => {
-    Template.hasMany(models.Checklist, { onDelete: 'CASCADE' });
-    Template.belongsTo(models.User);
-  };
+    Template.associate = models => {
+        Template.hasMany(models.Checklist, { onDelete: 'CASCADE' });
+        Template.belongsTo(models.User);
+    };
 
-  return Template;
+    return Template;
 };
 
 export default template;
