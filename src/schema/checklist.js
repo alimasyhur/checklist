@@ -1,36 +1,36 @@
 import { gql } from 'apollo-server-express';
 
 export default gql`
-  extend type Query {
+extend type Query {
     checklists(cursor: String, limit: Int): ChecklistConnection!
     checklist(id: ID!): Checklist!
-  }
+}
 
-  extend type Mutation {
+extend type Mutation {
     createChecklist(
-      object_id: String!, object_domain: String!, description: String!,
-      is_completed: Boolean, due: String, due_interval: Int,
-      due_unit: String, urgency: Int, items: [itemsInput]
+        object_id: String!, object_domain: String!, description: String!,
+        is_completed: Boolean, due: String, due_interval: Int,
+        due_unit: String, urgency: Int, items: [itemsInput]
     ): Checklist!
     updateChecklist(
-      id: ID!, object_id: String!, object_domain: String!,
-      description: String!, is_completed: Boolean, completed_at: String,
-      updated_by: String, due: String, due_interval: Int,
-      due_unit: String, urgency: Int, items: [itemsInput]
+        id: ID!, object_id: String!, object_domain: String!,
+        description: String!, is_completed: Boolean, completed_at: String,
+        updated_by: String, due: String, due_interval: Int,
+        due_unit: String, urgency: Int, items: [itemsInput]
     ): Checklist!
     deleteChecklist(id: ID!): Boolean!
-  }
+}
 
-  input itemsInput {
+input itemsInput {
     description: String!
-  }
+}
 
-  type ChecklistConnection {
+type ChecklistConnection {
     edges: [Checklist!]!
     pageInfo: PageInfo!
-  }
+}
 
-  type Checklist {
+type Checklist {
     id: ID!
     object_id: String!
     object_domain: String!
@@ -47,5 +47,5 @@ export default gql`
     items: [Item!]
     user: User!
     template: Template!
-  }
+}
 `;

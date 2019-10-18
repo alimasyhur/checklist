@@ -4,115 +4,115 @@ const API_URL = 'http://localhost:3000/graphql';
 
 //User
 export const user = async variables =>
-  axios.post(API_URL, {
-    query: `
-      query ($id: ID!) {
-        user(id: $id) {
-          id
-          username
-          email
-        }
-      }
-    `,
-    variables,
-  });
-
-export const signIn = async variables =>
-  await axios.post(API_URL, {
-    query: `
-      mutation ($login: String!, $password: String!) {
-        signIn(login: $login, password: $password) {
-          token
-        }
-      }
-    `,
-    variables,
-  });
-
-  export const deleteUser = async (variables, token) =>
-    axios.post(
-      API_URL,
-      {
+    axios.post(API_URL, {
         query: `
-          mutation ($id: ID!) {
-            deleteUser(id: $id)
-          }
+        query ($id: ID!) {
+            user(id: $id) {
+                id
+                username
+                email
+            }
+        }
         `,
         variables,
-      },
-      {
-        headers: {
-          'x-token': token,
+    });
+
+export const signIn = async variables =>
+    await axios.post(API_URL, {
+        query: `
+        mutation ($login: String!, $password: String!) {
+            signIn(login: $login, password: $password) {
+                token
+            }
+        }
+        `,
+        variables,
+    });
+
+export const deleteUser = async (variables, token) =>
+    axios.post(
+        API_URL,
+        {
+            query: `
+            mutation ($id: ID!) {
+                deleteUser(id: $id)
+            }
+            `,
+            variables,
         },
-      },
+        {
+            headers: {
+                'x-token': token,
+            },
+        },
     );
 
 //History
 export const histories = async (variables, token) =>
-  axios.post(API_URL, {
-    query: `
-      query ($limit: Int!) {
-        histories(limit: $limit) {
-           id
-           action
-           loggable_id
-           loggable_type
-           value
-           kwuid
+    axios.post(API_URL, {
+        query: `
+        query ($limit: Int!) {
+            histories(limit: $limit) {
+                id
+                action
+                loggable_id
+                loggable_type
+                value
+                kwuid
+            }
         }
-      }
-    `,
-    variables,
-  }, {
-    headers: {
-      'x-token': token,
-    },
-  });
+        `,
+        variables,
+    }, {
+        headers: {
+            'x-token': token,
+        },
+    });
 
-  export const history = async (variables, token) =>
-  axios.post(API_URL, {
-    query: `
-      query ($id: ID!) {
-        history(id: $id) {
-          id
-          action
-          loggable_id
-          loggable_type
-          value
-          kwuid
-        }
-      }
-    `,
-    variables,
-  }, {
-    headers: {
-      'x-token': token,
-    },
-  });
+export const history = async (variables, token) =>
+    axios.post(API_URL, {
+        query: `
+            query ($id: ID!) {
+                history(id: $id) {
+                id
+                action
+                loggable_id
+                loggable_type
+                value
+                kwuid
+                }
+            }
+        `,
+        variables,
+    }, {
+        headers: {
+            'x-token': token,
+        },
+    });
 
 //Template
 export const templates = async (variables, token) =>
-  axios.post(API_URL, {
-    query: `
-      query ($limit: Int!) {
-        templates(limit: $limit) {
-           id
-           name
-           checklist
-           items
+    axios.post(API_URL, {
+        query: `
+        query ($limit: Int!) {
+            templates(limit: $limit) {
+                id
+                name
+                checklist
+                items
+            }
         }
-      }
-    `,
-    variables,
-  }, {
-    headers: {
-      'x-token': token,
-    },
-  });
+        `,
+        variables,
+    }, {
+        headers: {
+            'x-token': token,
+        },
+    });
 
-  export const template = async (variables, token) =>
-  axios.post(API_URL, {
-    query: `
+export const template = async (variables, token) =>
+    axios.post(API_URL, {
+        query: `
       query ($id: ID!) {
         template(id: $id) {
           id
@@ -122,16 +122,16 @@ export const templates = async (variables, token) =>
         }
       }
     `,
-    variables,
-  }, {
-    headers: {
-      'x-token': token,
-    },
-  });
+        variables,
+    }, {
+        headers: {
+            'x-token': token,
+        },
+    });
 
-  export const createTemplate = async (variables, token) =>
-  axios.post(API_URL, {
-    query: `
+export const createTemplate = async (variables, token) =>
+    axios.post(API_URL, {
+        query: `
       mutation ($name: String!, $checklist: ChecklistItemInput!, $items: [ChecklistItemInput]!) {
         createTemplate(name: $name, checklist: $checklist, items: $items) {
           id
@@ -141,16 +141,16 @@ export const templates = async (variables, token) =>
         }
       }
     `,
-    variables,
-  }, {
-    headers: {
-      'x-token': token,
-    },
-  });
+        variables,
+    }, {
+        headers: {
+            'x-token': token,
+        },
+    });
 
-  export const updateTemplate = async (variables, token) =>
-  axios.post(API_URL, {
-    query: `
+export const updateTemplate = async (variables, token) =>
+    axios.post(API_URL, {
+        query: `
       mutation ($id: ID!, $name: String!, $checklist: ChecklistItemInput, $items: [ChecklistItemInput]) {
         updateTemplate(id: $id, name: $name, checklist: $checklist, items: $items) {
           id
@@ -160,16 +160,16 @@ export const templates = async (variables, token) =>
         }
       }
     `,
-    variables,
-  }, {
-    headers: {
-      'x-token': token,
-    },
-  });
+        variables,
+    }, {
+        headers: {
+            'x-token': token,
+        },
+    });
 
-  export const assignTemplate = async (variables, token) =>
-  axios.post(API_URL, {
-    query: `
+export const assignTemplate = async (variables, token) =>
+    axios.post(API_URL, {
+        query: `
       mutation ($id: ID!,
                 $object_domain: String!,
                 $object_id: String!
@@ -187,16 +187,16 @@ export const templates = async (variables, token) =>
         }
       }
     `,
-    variables,
-  }, {
-    headers: {
-      'x-token': token,
-    },
-  });
+        variables,
+    }, {
+        headers: {
+            'x-token': token,
+        },
+    });
 
-  export const assignMultiTemplate = async (variables, token) =>
-  axios.post(API_URL, {
-    query: `
+export const assignMultiTemplate = async (variables, token) =>
+    axios.post(API_URL, {
+        query: `
       mutation ($id: ID!, $data: [ChecklistTemplateInput!]!) {
         assignMultiTemplate(id: $id,
                         data: $data
@@ -210,36 +210,36 @@ export const templates = async (variables, token) =>
         }
       }
     `,
-    variables,
-  }, {
-    headers: {
-      'x-token': token,
-    },
-  });
+        variables,
+    }, {
+        headers: {
+            'x-token': token,
+        },
+    });
 
-  export const deleteTemplate = async (variables, token) =>
+export const deleteTemplate = async (variables, token) =>
     axios.post(
-      API_URL,
-      {
-        query: `
+        API_URL,
+        {
+            query: `
           mutation ($id: ID!) {
             deleteTemplate(id: $id)
           }
         `,
-        variables,
-      },
-      {
-        headers: {
-          'x-token': token,
+            variables,
         },
-      },
-  );
+        {
+            headers: {
+                'x-token': token,
+            },
+        },
+    );
 
 
-  //Checklist
-  export const checklists = async (variables, token) =>
+//Checklist
+export const checklists = async (variables, token) =>
     axios.post(API_URL, {
-      query: `
+        query: `
         query ($limit: Int!) {
           checklists(limit: $limit) {
              id
@@ -257,16 +257,16 @@ export const templates = async (variables, token) =>
           }
         }
       `,
-      variables,
+        variables,
     }, {
-      headers: {
-        'x-token': token,
-      },
+        headers: {
+            'x-token': token,
+        },
     });
 
-  export const checklist = async (variables, token) =>
+export const checklist = async (variables, token) =>
     axios.post(API_URL, {
-      query: `
+        query: `
         query ($id: ID!) {
           checklist(id: $id) {
             id
@@ -277,16 +277,16 @@ export const templates = async (variables, token) =>
           }
         }
       `,
-      variables,
+        variables,
     }, {
-      headers: {
-        'x-token': token,
-      },
+        headers: {
+            'x-token': token,
+        },
     });
 
-  export const createChecklist = async (variables, token) =>
+export const createChecklist = async (variables, token) =>
     axios.post(API_URL, {
-      query: `
+        query: `
         mutation ($object_domain: String!,
                   $object_id: String!,
                   $description: String!,
@@ -310,16 +310,16 @@ export const templates = async (variables, token) =>
           }
         }
       `,
-      variables,
+        variables,
     }, {
-      headers: {
-        'x-token': token,
-      },
+        headers: {
+            'x-token': token,
+        },
     });
 
-    export const updateChecklist = async (variables, token) =>
+export const updateChecklist = async (variables, token) =>
     axios.post(API_URL, {
-      query: `
+        query: `
         mutation ($id: ID!,
                   $object_domain: String!,
                   $object_id: String!,
@@ -340,33 +340,33 @@ export const templates = async (variables, token) =>
           }
         }
       `,
-      variables,
+        variables,
     }, {
-      headers: {
-        'x-token': token,
-      },
+        headers: {
+            'x-token': token,
+        },
     });
 
-    export const deleteChecklist = async (variables, token) =>
-      axios.post(
+export const deleteChecklist = async (variables, token) =>
+    axios.post(
         API_URL,
         {
-          query: `
+            query: `
             mutation ($id: ID!) {
               deleteChecklist(id: $id)
             }
           `,
-          variables,
+            variables,
         },
         {
-          headers: {
-            'x-token': token,
-          },
+            headers: {
+                'x-token': token,
+            },
         },
     );
 
-    export const checklistItem = async (variables, token) =>
-      axios.post(API_URL, {
+export const checklistItem = async (variables, token) =>
+    axios.post(API_URL, {
         query: `
           query ($checklistId: Int!, $itemId: Int!) {
             checklistItem(checklistId: $checklistId, itemId: $itemId) {
@@ -383,14 +383,14 @@ export const templates = async (variables, token) =>
           }
         `,
         variables,
-      }, {
+    }, {
         headers: {
-          'x-token': token,
+            'x-token': token,
         },
-      });
+    });
 
-    export const createChecklistItem = async (variables, token) =>
-      axios.post(API_URL, {
+export const createChecklistItem = async (variables, token) =>
+    axios.post(API_URL, {
         query: `
           mutation ($checklistId: Int!, $description: String!) {
             createChecklistItem(checklistId: $checklistId, description: $description) {
@@ -403,15 +403,15 @@ export const templates = async (variables, token) =>
           }
         `,
         variables,
-      }, {
+    }, {
         headers: {
-          'x-token': token,
+            'x-token': token,
         },
-      });
+    });
 
-  export const updateChecklistItem = async (variables, token) =>
+export const updateChecklistItem = async (variables, token) =>
     axios.post(API_URL, {
-      query: `
+        query: `
         mutation ($checklistId: Int!, $id: Int!, $description: String!) {
           updateChecklistItem(checklistId: $checklistId, id: $id, description: $description) {
                   id
@@ -424,34 +424,34 @@ export const templates = async (variables, token) =>
           }
         }
       `,
-      variables,
+        variables,
     }, {
-      headers: {
-        'x-token': token,
-      },
+        headers: {
+            'x-token': token,
+        },
     });
 
-  export const deleteChecklistItem = async (variables, token) =>
+export const deleteChecklistItem = async (variables, token) =>
     axios.post(
-      API_URL,
-      {
-        query: `
+        API_URL,
+        {
+            query: `
           mutation ($checklistId: Int!, $id: Int!) {
             deleteChecklistItem(checklistId: $checklistId, id: $id)
           }
         `,
-        variables,
-      },
-      {
-        headers: {
-          'x-token': token,
+            variables,
         },
-      },
-  );
+        {
+            headers: {
+                'x-token': token,
+            },
+        },
+    );
 
-  export const completeChecklistItems = async (variables, token) =>
+export const completeChecklistItems = async (variables, token) =>
     axios.post(API_URL, {
-      query: `
+        query: `
         mutation ($data: [ItemsCompleteInput!]!) {
           completeChecklistItems(data: $data) {
               id
@@ -461,16 +461,16 @@ export const templates = async (variables, token) =>
           }
         }
       `,
-      variables,
+        variables,
     }, {
-      headers: {
-        'x-token': token,
-      },
+        headers: {
+            'x-token': token,
+        },
     });
 
-  export const incompleteChecklistItems = async (variables, token) =>
+export const incompleteChecklistItems = async (variables, token) =>
     axios.post(API_URL, {
-      query: `
+        query: `
         mutation ($data: [ItemsCompleteInput!]!) {
           incompleteChecklistItems(data: $data) {
               id
@@ -480,9 +480,9 @@ export const templates = async (variables, token) =>
           }
         }
       `,
-      variables,
+        variables,
     }, {
-      headers: {
-        'x-token': token,
-      },
+        headers: {
+            'x-token': token,
+        },
     });

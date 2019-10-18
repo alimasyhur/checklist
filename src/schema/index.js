@@ -7,27 +7,27 @@ import itemSchema from './item';
 import historySchema from './history';
 
 const linkSchema = gql`
-  scalar Date
+scalar Date
 
-  type Query {
+type Query {
     _: Boolean
-  }
+}
 
-  type Mutation {
+type Mutation {
     _: Boolean
-  }
+}
 
-  type PageInfo {
+type PageInfo {
     hasNextPage: Boolean!
     endCursor: Date!
-  }
+}
 `;
 
 export default [
-                  linkSchema,
-                  userSchema,
-                  templateSchema,
-                  checklistSchema,
-                  itemSchema,
-                  historySchema
-                ];
+    linkSchema,
+    userSchema,
+    templateSchema,
+    checklistSchema,
+    itemSchema,
+    historySchema
+];

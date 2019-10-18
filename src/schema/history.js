@@ -1,17 +1,17 @@
 import { gql } from 'apollo-server-express';
 
 export default gql`
-  extend type Query {
+extend type Query {
     histories(cursor: String, limit: Int): HistoryConnection!
     history(id: ID!): History!
-  }
+}
 
-  type HistoryConnection {
+type HistoryConnection {
     edges: [History!]!
     pageInfo: PageInfo!
-  }
+}
 
-  type History {
+type History {
     id: ID!
     loggable_type: String!
     loggable_id: Int!
@@ -21,5 +21,5 @@ export default gql`
     createdAt: Date!
     updatedAt: Date!
     user: User!
-  }
+}
 `;

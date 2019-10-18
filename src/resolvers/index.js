@@ -7,14 +7,14 @@ import itemResolvers from '../resolvers/item';
 import historyResolvers from '../resolvers/history';
 
 const customScalarResolver = {
-  Date: GraphQLDateTime,
+    Date: GraphQLDateTime,
 };
 
 export default [
-  customScalarResolver,
-  userResolvers,
-  templateResolvers,
-  checklistResolvers,
-  itemResolvers,
-  historyResolvers
+    customScalarResolver,
+    userResolvers,
+    templateResolvers,
+    checklistResolvers,
+    itemResolvers,
+    historyResolvers
 ];
